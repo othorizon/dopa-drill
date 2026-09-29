@@ -13,7 +13,7 @@ export const extraTotal = (n) => EXTRA_BASE * n + EXTRA_STEP * (n * (n - 1)) / 2
 // curves below are what a player with no combo gets; combos multiply each
 // step (see comboMult), so a steady combo lands back near the old targets.
 // Without combo the basic set ends near 10^2.3 (about 200); a full combo
-// doubles every step after 20 cells and ends near 1万.
+// doubles every step after 20 cells and ends near 1万 (10,000).
 export const BASIC_DOPA_L = 2.3;
 export function basicDopaL(frac) {
   const f = Math.min(1, Math.max(0, frac));
@@ -23,7 +23,7 @@ export function basicDopaL(frac) {
 const EXTRA_SPAN = 3.0; const EXTRA_TAU = 10;
 export const extraDopaL = (n) => BASIC_DOPA_L + EXTRA_SPAN * (1 - Math.exp(-n / EXTRA_TAU));
 export const extraProblemGain = (k) => extraDopaL(k + 1) - extraDopaL(k);
-// Hard ceiling: about 12億, whatever the combo.
+// Hard ceiling: about 12亿, whatever the combo.
 export const DOPA_MAX_L = 9.08;
 
 // ---------------------------------------------------------------- combo
@@ -50,13 +50,13 @@ export function comboWindowMs(grade = 3, first = false) {
 // Milestones worth a bigger show: 10, 20, 30, 50, 75, 100, then every 50.
 export const comboMilestone = (c) => [10, 20, 30, 50, 75].includes(c) || (c >= 100 && c % 50 === 0);
 
-const UNITS = [[68, '無量大数'], [64, '不可思議'], [60, '那由他'], [56, '阿僧祇'], [52, '恒河沙'], [48, '極'], [44, '載'], [40, '正'], [36, '澗'], [32, '溝'], [28, '穣'], [24, '秭'], [20, '垓'], [16, '京'], [12, '兆'], [8, '億'], [4, '万']];
+const UNITS = [[68, '无量大数'], [64, '不可思议'], [60, '那由他'], [56, '阿僧祇'], [52, '恒河沙'], [48, '极'], [44, '载'], [40, '正'], [36, '涧'], [32, '沟'], [28, '穰'], [24, '秭'], [20, '垓'], [16, '京'], [12, '兆'], [8, '亿'], [4, '万']];
 // Milestones below 万 are celebrated but not used as display units.
 const MILESTONES = [[3, '千'], [2, '百']];
 
 export function fmtDopa(L) {
   if (!Number.isFinite(L) || L >= 72) return '∞';
-  if (L < 4) return Math.round(10 ** L).toLocaleString('ja-JP');
+  if (L < 4) return Math.round(10 ** L).toLocaleString('zh-CN');
   const u = UNITS.find(([e]) => L >= e - 1e-9);
   const m = 10 ** (L - u[0]);
   return (m < 10 ? m.toFixed(1) : String(Math.floor(m))) + u[1];
@@ -64,7 +64,7 @@ export function fmtDopa(L) {
 
 export function unitOf(L) {
   if (L >= 72) return '∞';
-  // Between 万 and 億, each extra digit is its own milestone (10万, 100万, 1000万).
+  // Between 万 and 亿, each extra digit is its own milestone (10万, 100万, 1000万).
   if (L >= 4 && L < 8) return ['万', '十万', '百万', '千万'][Math.floor(L + 1e-9) - 4];
   const u = UNITS.find(([e]) => L >= e - 1e-9) || MILESTONES.find(([e]) => L >= e - 1e-9);
   return u ? u[1] : '';

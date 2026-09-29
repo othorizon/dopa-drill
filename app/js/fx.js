@@ -196,7 +196,7 @@ export class FX {
           const pop = k < 0.12 ? 0.6 + (k / 0.12) * 0.5 : k < 0.2 ? 1.1 - ((k - 0.12) / 0.08) * 0.1 : 1;
           c.setTransform(dpr * pop, 0, 0, dpr * pop, p.x * dpr, p.y * dpr);
           c.globalAlpha = fade;
-          c.font = `900 ${p.size}px "Dela Gothic One", "Zen Maru Gothic", sans-serif`;
+          c.font = `900 ${p.size}px "Dela Gothic One", "Noto Sans SC Display", sans-serif`;
           c.textAlign = 'center'; c.textBaseline = 'middle';
           c.lineWidth = p.size * 0.28; c.lineJoin = 'round'; c.strokeStyle = INK; c.strokeText(p.str, 0, 0);
           c.fillStyle = p.color; c.fillText(p.str, 0, 0);
