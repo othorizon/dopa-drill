@@ -169,16 +169,16 @@ export function nextStar(prog, id, today = null) {
   const pct = (l) => Math.round(rate(l) * 100);
   const cur = (l) => { const v = speedOf(l, grade); return Number.isFinite(v) ? Math.round((v * baseMs(grade, cells)) / 100) / 10 : null; };
   const n = s + 1;
-  if (n === 2) { const l = times.slice(-R.accN); return { n, text: `さいきん ${R.accN}もんの 初回正解が ${R.acc * 100}% いじょう`, now: `いま ${l.length}もん・${pct(l)}%` }; }
-  if (n === 3) { const l = times.slice(-R.speedN); const c = cur(l); return { n, text: `1もんを だいたい ${sec(1)}びょう いないで とく`, now: c == null ? `いま ${l.length}もん` : `いま ${c}びょう（${l.length}/${R.speedN}もん）` }; }
+  if (n === 2) { const l = times.slice(-R.accN); return { n, text: `最近${R.accN}道题的一次答对率达到${R.acc * 100}%以上`, now: `目前${l.length}道，${pct(l)}%` }; }
+  if (n === 3) { const l = times.slice(-R.speedN); const c = cur(l); return { n, text: `每道题大约在${sec(1)}秒内做完`, now: c == null ? `目前${l.length}道` : `目前${c}秒（${l.length}/${R.speedN}道）` }; }
   if (n === 4) {
     const since = r.starDay && r.starDay[3];
     const ref = today || (times.length ? times[times.length - 1].d : since);
     const wait = since && ref ? Math.max(0, R.gapDays - daysBetween(since, ref)) : R.gapDays;
-    return { n, text: `☆3から ${R.gapDays}日 たってから、${R.holdRun}もん つづけて 初回正解`, now: wait ? `あと ${wait}日 まってね` : 'きょうから ちょうせん できるよ' };
+    return { n, text: `得到☆3的${R.gapDays}天后，连续${R.holdRun}道一次答对`, now: wait ? `还要等${wait}天哦` : '今天就可以挑战了' };
   }
   const l = times.slice(-R.topN); const c = cur(l);
-  return { n, text: `さいきん ${R.topN}もんの 初回正解が ${R.top * 100}% いじょうで、1もん ${sec(R.topSpeed)}びょう いない`, now: `いま ${pct(l)}%${c == null ? '' : `・${c}びょう`}` };
+  return { n, text: `最近${R.topN}道题的一次答对率达到${R.top * 100}%以上，而且每道在${sec(R.topSpeed)}秒以内`, now: `目前${pct(l)}%${c == null ? '' : `，${c}秒`}` };
 }
 
 function noteTiming(r, firstTry, { day, ms, cells = 1, misses = 0, problem = null }, at) {

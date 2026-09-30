@@ -403,7 +403,7 @@ Escapeは、開いているダイアログを閉じるか、タイトル以外�
 | `app/js/dopakichi.js` | パーツ分割SVGのマスコットと演技 |
 | `app/js/fx.js`、`app/js/bg.js` | Canvas 2Dの粒子とWebGL背景 |
 | `app/js/audio.js`、`app/js/core.js` | Web Audio合成、時計・補間・ばね |
-| `app/fonts/` | Dela Gothic One、Zen Maru Gothicのローカルサブセット。SIL Open Font License |
+| `app/fonts/` | Dela Gothic One、Zen Maru Gothic（英数字・記号）、Noto Sans SC（中国語）のローカルサブセット。SIL Open Font License |
 | `tests/` | 問題生成、判定、保存、成長等のテスト |
 | `tools/build_fonts.sh` | 画面の文言を変更した場合のフォント再生成 |
 | `docs/` | 本書、カリキュラム、ドパキチの造形資料 |
